@@ -1,6 +1,5 @@
 package com.example.tipcalculator
 
-import InputField
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -166,11 +165,8 @@ fun BillForm(
                     enabled = true,
                     isSingleLine = true,
                     onAction = KeyboardActions{
-                        //if it is false then just return whatever the keyboard is going to allow us to do
-                        if(!validState) return@KeyboardActions
-                        //Todo - onvaluechanged
-                        onValChange(totalBillState.value.trim())
-                        keyboardController?.hide()
+
+                        //TODO
                     }
                 )
 
@@ -181,34 +177,24 @@ fun BillForm(
                         Text(text = "Split", modifier = modifier
                             .align(alignment = Alignment.CenterVertically))
                         Spacer(modifier = Modifier.width(120.dp))
-                        Row(modifier = Modifier.padding(horizontal = 3.dp),
+
+                        Row(
+                            modifier = Modifier.padding(horizontal = 3.dp),
                             horizontalArrangement = Arrangement.End) {
                             RoundIconButton(imageVector = Icons.Default.Remove,
                                 onClick = {
-                                    splitByState.value =
-                                        if(splitByState.value > 1) splitByState.value - 1 else 1
-                                    totalPerPersonState.value = calculateTotalPerson(
-                                        totalBill = totalBillState.value.toDouble(),
-                                        splitBy = splitByState.value,
-                                        tipPercentage = tipPercentage
-                                    )
+
                                 })
+
                             Text(text = "${splitByState.value}",
                                 modifier = Modifier
                                     .align(Alignment.CenterVertically)
                                     .padding(start = 9.dp, end = 9.dp)
                             )
+
                             RoundIconButton(imageVector = Icons.Default.Add,
                                 onClick = {
-                                    if(splitByState.value < range.last) {
-                                        splitByState.value += 1
-                                    }
 
-                                    totalPerPersonState.value = calculateTotalPerson(
-                                        totalBill = totalBillState.value.toDouble(),
-                                        splitBy = splitByState.value,
-                                        tipPercentage = tipPercentage
-                                    )
                                 }
                             )
                         }
@@ -237,14 +223,9 @@ fun BillForm(
                         Spacer(modifier = Modifier.height(14.dp))
 
                         //slider
-                        Slider(value = sliderPositionState.value, onValueChange = {newVal ->
-                            sliderPositionState.value = newVal
-                            tipAmountState.value = calculateTotalTip(totalBill = totalBillState.value.toDouble(),tipPercentage = tipPercentage)
-                            totalPerPersonState.value = calculateTotalPerson(
-                                totalBill = totalBillState.value.toDouble(),
-                                splitBy = splitByState.value,
-                                tipPercentage = tipPercentage
-                            )
+                        Slider(value = sliderPositionState.value,
+                            onValueChange = {
+                                //TODO
                         },
                             modifier = modifier.padding(start = 16.dp,end = 16.dp),
 //                            steps = 5
